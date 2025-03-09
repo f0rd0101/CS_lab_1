@@ -1,33 +1,27 @@
 #include <stdio.h>
-#include <math.h>
-#define n 5
 
-int main(){
-    int mas [n],k=0,s=0,i,minValue=0, maxValue=0,production = 1;
-    puts("Enter array numbers\n");
+#define N 5
 
-    for(i=0;i<n;i++){
-        scanf ("%i", &mas[i]); 
-            if(mas[i]<0){
-                s+=mas[i];
-            }
-           
-
-            
+int main() {
+    int mas[N], i, minIndex = 0, maxIndex = 0, product = 1, sumNeg = 0;
+    
+    puts("Enter array numbers:");
+    for (i = 0; i < N; i++) {
+        scanf("%d", &mas[i]);
+        if (mas[i] < mas[minIndex]) minIndex = i;
+        if (mas[i] > mas[maxIndex]) maxIndex = i;
+        if (mas[i] < 0) sumNeg += mas[i];
     }
-    minValue = maxValue = mas[0];
-    for(i=0;i<n;i++){
-        if (mas[i] < minValue) minValue = mas[i]; 
-        if (mas[i] > maxValue) maxValue = mas[i];
+    
+    if (minIndex > maxIndex) {
+        int temp = minIndex;
+        minIndex = maxIndex;
+        maxIndex = temp;
     }
-    for(i=0;i<n;i++){
-        if(mas[i] >minValue && mas[i]<maxValue){
-          production *=mas[i];
-        }
-    }
-    printf("Non Postive sum equals: %d\n",s);
-    printf("Production between max and min equals %d\n",production);
+    
+    for (i = minIndex + 1; i < maxIndex; i++) product *= mas[i];
+    
+    printf("Non-positive sum: %d\n", sumNeg);
+    printf("Product of elements between min and max: %d\n", maxIndex - minIndex > 1 ? product : 0);
     return 0;
-
-
 }
